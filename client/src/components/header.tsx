@@ -1,26 +1,32 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.svg";
+import "./header.css";
 
 export default function Header(){
   return (
-    <header>
-      <nav>
-        <ul className="flex items-center justify-evenly space-x-4 p-5">
-          <li>
-            {/* use Tailwind or inline style for border reset */}
-            <img src={Logo} alt="Aahar logo" className="h-16" /* style={{ border: 0 }} */ />
-          </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/marketplace">MarketPlace</Link>
-          </li>
-          <li>
-            <Link to="/disease">Disease</Link>
-          </li>
-        </ul>
-      </nav>
+    <header className="site-header" data-translate="message">
+        <nav className="site-nav" aria-label="Primary navigation">
+            <ul className="site-nav__list">
+                <li>
+                     <img src={Logo} alt="Aahar logo" className="site-nav__logo" />
+                </li>
+                <li>
+                     <Link className="site-nav__link" to="/">
+                    Home
+                    </Link>
+                </li>
+                <li>
+                    <Link className="site-nav__link" to="/marketplace">
+                    Marketplace
+                    </Link>
+                </li>
+                <li>
+                    <Link className="site-nav__link" to="/disease">
+                    Disease
+                    </Link>
+                </li>
+            </ul>
+        </nav>
     </header>
   );
 }

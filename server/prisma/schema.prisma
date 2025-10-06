@@ -1,0 +1,35 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  phone        String    @unique
+  name         String?
+  role         Role      @default(USER)
+  passwordHash String
+  sessions     Session[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Session {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  refreshJti String    @unique
+  userAgent  String?
+  ip         String?
+  createdAt  DateTime  @default(now())
+  revokedAt  DateTime?
+}
+
+enum Role {
+  USER
+  ADMIN
+}

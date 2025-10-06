@@ -102,15 +102,15 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   return (
-    <div className="language-switcher">
-      <select onChange={handleLanguageChange} disabled={loading}>
+    <div className="language-switcher" data-translate="message">
+      <select onChange={handleLanguageChange} disabled={loading} aria-label="Choose language">
         {languages.map((lang) => (
           <option key={lang.name} value={lang.name}>
             {lang.name}
           </option>
         ))}
       </select>
-      {loading && <span className="ml-2">Translating…</span>}
+      {loading && <span className="language-switcher__status">Translating…</span>}
     </div>
   );
 };

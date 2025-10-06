@@ -1,0 +1,130 @@
+.home-hero {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.home-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.home-hero__headline {
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.home-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.75rem;
+  border-radius: 999px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #10b981, #22d3ee);
+  color: #022c22;
+  box-shadow: 0 18px 45px rgba(16, 185, 129, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-hero__cta:hover,
+.home-hero__cta:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 55px rgba(14, 165, 233, 0.3);
+}
+
+.home-hero__illustration {
+  display: flex;
+  justify-content: center;
+}
+
+.home-hero__image {
+  width: min(100%, 420px);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
+}
+
+.home-offerings {
+  padding: 1rem 1.5rem 3rem;
+}
+
+.home-offerings__title {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+}
+
+.home-offerings__grid {
+  display: grid;
+  gap: 1.75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.home-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-card:hover,
+.home-card:focus-within {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 26px 70px rgba(15, 23, 42, 0.16);
+}
+
+.home-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.home-card__icon {
+  width: 32px;
+  height: 32px;
+}
+
+.home-card__body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+.home-language-switcher {
+  display: flex;
+  justify-content: center;
+  margin: 2.5rem 0 3.5rem;
+}
+
+@media (max-width: 640px) {
+  .home-hero {
+    padding-top: 2.5rem;
+  }
+
+  .home-hero__cta {
+    font-size: 1.25rem;
+    padding: 0.85rem 2.25rem;
+  }
+
+  .home-card__title {
+    font-size: 1.65rem;
+  }
+}
