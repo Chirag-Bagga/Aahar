@@ -1,0 +1,14 @@
+{
+  "name": "aahar",
+  "private": true,
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "dev:client": "npm run -w client dev",
+    "dev:server": "npm run -w server dev",
+    "dev": "npm-run-all -p dev:server dev:client",
+    "build": "npm run -w server build && npm run -w client build",
+    "lint": "npm run -w server lint && npm run -w client lint",
+    "typecheck": "npm run -w server typecheck && npm run -w client typecheck",
+    "test": "npm run -w server test && npm run -w client test"
+  }
+}
