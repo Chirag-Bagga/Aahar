@@ -8,20 +8,25 @@ generator client {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  phone        String    @unique
+  id           String   @id @default(cuid())
+  phone        String   @unique
   name         String?
-  role         Role      @default(USER)
+  role         Role     @default(USER)
   passwordHash String
-  sessions     Session[]
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Back-relations (all named):
+  sessions       Session[]       @relation("UserToSessions")
+  npkReadings    NpkReading[]    @relation("UserToReadings")
+  diseaseReports DiseaseReport[] @relation("UserToDiseaseReports")
+  cart           Cart?           @relation("UserToCart")
 }
 
 model Session {
   id         String    @id @default(cuid())
   userId     String
-  user       User      @relation(fields: [userId], references: [id])
+  user       User      @relation(name: "UserToSessions", fields: [userId], references: [id])
   refreshJti String    @unique
   userAgent  String?
   ip         String?
@@ -32,4 +37,86 @@ model Session {
 enum Role {
   USER
   ADMIN
+}
+
+model NpkReading {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(name: "UserToReadings", fields: [userId], references: [id])
+
+  c1  Float
+  hp1 Float
+  k1  Float
+  m1  Float
+  n1  Float
+  p1  Float
+  t1  Float
+
+  source      String
+  readAt      DateTime        @default(now())
+  predictions NpkPrediction[]
+}
+
+model NpkPrediction {
+  id           String     @id @default(cuid())
+  readingId    String
+  reading      NpkReading @relation(fields: [readingId], references: [id])
+  recommendedN Float
+  recommendedP Float
+  recommendedK Float
+  modelVer     String
+  createdAt    DateTime   @default(now())
+}
+
+model DiseaseReport {
+  id         String       @id @default(cuid())
+  userId     String
+  user       User         @relation(name: "UserToDiseaseReports", fields: [userId], references: [id])
+  imageKey   String
+  status     ReportStatus @default(PENDING)
+  label      String?
+  confidence Float?
+  modelVer   String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+enum ReportStatus {
+  PENDING
+  DONE
+  FAILED
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  priceInINR  Int
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+
+  // Back-relation to cart items
+  cartItems CartItem[] @relation("ProductToCartItems")
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(name: "UserToCart", fields: [userId], references: [id])
+  items     CartItem[] @relation("CartToItems")
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id     String @id @default(cuid())
+  cartId String
+  cart   Cart   @relation(name: "CartToItems", fields: [cartId], references: [id])
+
+  productId String
+  product   Product @relation(name: "ProductToCartItems", fields: [productId], references: [id])
+
+  qty       Int      @default(1)
+  createdAt DateTime @default(now())
+
+  @@unique([cartId, productId])
 }
